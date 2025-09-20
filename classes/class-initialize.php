@@ -6,6 +6,8 @@ class Initialize
 {
     public static function init()
     {
+        add_theme_support('post-thumbnails');
+        
         add_filter('wp_prepare_themes_for_js', [self::class, 'openAuthorUriInNewTab']);
         add_action('wp_enqueue_scripts', [self::class, 'enqueueDependencies']);
         add_filter('use_block_editor_for_post_type', [self::class, 'forceClassicEditorForPages'], 10, 2);
@@ -60,7 +62,7 @@ class Initialize
 
     public static function forceClassicEditorForPages($use_block_editor, $post_type)
     {
-        if ($post_type === 'page' || $post_type === 'ad') {
+        if ($post_type === 'page' || $post_type === 'ad' || $post_type === 'post') {
             return false;
         }
 
