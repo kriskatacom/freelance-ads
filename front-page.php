@@ -34,6 +34,45 @@
             </div>
         </div>
     </section>
+
+    <section class="container mx-auto py-10 space-y-10">
+        <div class="max-w-2xl mx-auto space-y-5">
+            <h2 class="text-3xl font-semibold text-center">Категории</h2>
+            <p class="text-lg text-gray-700 text-center max-sm:px-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem consectetur, at explicabo excepturi vel dolorum! Ipsam, recusandae maiores</p>
+        </div>
+        <ul class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            <li>
+                <a href="#" class="bg-white space-y-2 block p-5 text-center rounded shadow-[0_0_4px_rgba(0,0,0,0.25)] hover:shadow-[0_0_20px_rgba(0,0,0,0.35)] hover:-translate-y-2 duration-300">
+                    <h3 class="text-xl font-semibold">Уеб разработка</h3>
+                    <p class="text-lg">Проекти, свързани със създаване на сайтове, онлайн магазини и уеб приложения.</p>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="bg-white space-y-2 block p-5 text-center rounded shadow-[0_0_4px_rgba(0,0,0,0.25)] hover:shadow-[0_0_20px_rgba(0,0,0,0.35)] hover:-translate-y-2 duration-300">
+                    <h3 class="text-xl font-semibold">Дизайн и креатив</h3>
+                    <p class="text-lg">Графичен, UI/UX и бранд дизайн за уеб и печатни материали.</p>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="bg-white space-y-2 block p-5 text-center rounded shadow-[0_0_4px_rgba(0,0,0,0.25)] hover:shadow-[0_0_20px_rgba(0,0,0,0.35)] hover:-translate-y-2 duration-300">
+                    <h3 class="text-xl font-semibold">Маркетинг и съдържание</h3>
+                    <p class="text-lg">Копирайтинг, SEO и стратегии за социални мрежи.</p>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="bg-white space-y-2 block p-5 text-center rounded shadow-[0_0_4px_rgba(0,0,0,0.25)] hover:shadow-[0_0_20px_rgba(0,0,0,0.35)] hover:-translate-y-2 duration-300">
+                    <h3 class="text-xl font-semibold">Видео и анимация</h3>
+                    <p class="text-lg">Видео монтаж, анимация и визуални ефекти.</p>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="bg-white space-y-2 block p-5 text-center rounded shadow-[0_0_4px_rgba(0,0,0,0.25)] hover:shadow-[0_0_20px_rgba(0,0,0,0.35)] hover:-translate-y-2 duration-300">
+                    <h3 class="text-xl font-semibold">ИТ поддръжка</h3>
+                    <p class="text-lg">Техническа помощ, тестване и киберсигурност.</p>
+                </a>
+            </li>
+        </ul>
+    </section>
 </main>
 
 <?php get_footer(); ?>

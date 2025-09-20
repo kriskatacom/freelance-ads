@@ -1,20 +1,41 @@
 <?php
+/**
+ * Theme bootstrap file
+ */
 
-use Classes\Pages\HomepageSettings;
-
+// ==============================
+// Includes
+// ==============================
 require_once get_template_directory() . '/classes/class-initialize.php';
 require_once get_template_directory() . '/classes/initialize-menus.php';
+require_once get_template_directory() . '/classes/pages/HomepageSettings.php';
+require_once get_template_directory() . '/classes/custom_post_types/Ads_CPT.php';
 
-
+// ==============================
+// Namespaces
+// ==============================
 use Theme\Admin\Initialize;
 use Theme\Admin\InitializeMenus;
 
+use Classes\Custom_post_types\Ads_CPT;
+use Classes\Pages\HomepageSettings;
+
+// ==============================
+// Custom Post Types
+// ==============================
+new Ads_CPT();
+
+// ==============================
+// Theme Initialization
+// ==============================
 Initialize::init();
 InitializeMenus::init();
 
-// pages
-require_once get_template_directory() . '/classes/pages/HomepageSettings.php';
-
+// ==============================
+// Page-specific settings
+// ==============================
 $current_page_id = isset($_GET['post']) ? intval($_GET['post']) : 0;
 
-if ($current_page_id == 14 || $current_page_id == 33) new HomepageSettings();
+if (in_array($current_page_id, [14, 33], true)) {
+    new HomepageSettings();
+}

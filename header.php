@@ -6,6 +6,6 @@
     <title><?php wp_title('|', true, 'right'); bloginfo('description'); ?></title>
     <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class("bg-gray-100"); ?>>
 <header>
 </header>

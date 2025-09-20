@@ -58,10 +58,23 @@ class Initialize
 
     public static function forceClassicEditorForPages($use_block_editor, $post_type)
     {
-        if ($post_type === 'page') {
+        if ($post_type === 'page' || $post_type === 'ad') {
             return false;
         }
 
         return $use_block_editor;
+    }
+
+    public static function transliterate($text)
+    {
+        $cyr = ['ж','ч','щ','ш','ю','я','а','б','в','г','д','е','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ъ','ь','ы','э',
+                'Ж','Ч','Щ','Ш','Ю','Я','А','Б','В','Г','Д','Е','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ъ','Ь','Ы','Э'];
+        $lat = ['zh','ch','sht','sh','yu','ya','a','b','v','g','d','e','z','i','y','k','l','m','n','o','p','r','s','t','u','f','h','ts','a','y','y','e',
+                'Zh','Ch','Sht','Sh','Yu','Ya','A','B','V','G','D','E','Z','I','Y','K','L','M','N','O','P','R','S','T','U','F','H','Ts','A','Y','Y','E'];
+
+        $text = str_replace($cyr, $lat, $text);
+        $text = strtolower($text);
+        $text = preg_replace('/[^a-z0-9]+/', '-', $text);
+        return trim($text, '-');
     }
 }
