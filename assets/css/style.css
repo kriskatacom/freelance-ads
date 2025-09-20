@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.home-hero-background {
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, #0d0c0c 0 50%) 
+      calc(200px/2) calc(200px * tan(30deg)/2),
+    repeating-conic-gradient(from 30deg, #0b0a0a 0 60deg, #121111 0 120deg, #0d0c0c 0 50%);
+  background-size: 200px calc(200px * tan(30deg));
+}

@@ -1,0 +1,195 @@
+/*
+Theme Name: Freelance Ads
+Theme URI:  https://kriskata.com/freelance-ads
+Author:     Kristian Kostadinov
+Author URI: https://kriskata.com
+Description: Lightweight, accessible, and extendable starter for any WordPress theme. Includes base styles, variables, and responsive rules.
+Version:    1.0.0
+License:    GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: freelance-ads
+Tags:       custom-logo, custom-menu, accessibility-ready, responsive-layout
+*/
+
+/* ===================================================================
+   БАЗОВ РЕСЕТ / NORMALIZE (лека версия)
+   =================================================================== */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+ul, ol, li,
+form, fieldset, legend,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+/* make articles display block in older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+html { box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+*, *::before, *::after { box-sizing: inherit; }
+
+body {
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px; /* сменете по подразбиране ако желаете */
+}
+
+img, picture, video, canvas { max-width: 100%; height: auto; display: block; }
+
+/* ===================================================================
+   ПРЕПОРЪЧИТЕЛНИ ПЕРЕМЕННИ (CSS Custom Properties)
+   Може лесно да променяте темата чрез тези стойности
+   =================================================================== */
+:root {
+  --color-bg: #ffffff;
+  --color-muted: #6b7280;
+  --color-text: #111827;
+  --color-primary: #0ea5a4; /* teal-ish */
+  --color-accent: #0369a1;
+  --color-success: #16a34a;
+  --color-danger:  #ef4444;
+
+  --max-width: 1200px;
+  --container-padding: 1rem;
+  --radius: 10px;
+  --shadow-sm: 0 1px 2px rgba(16,24,40,0.05);
+  --shadow-md: 0 6px 18px rgba(16,24,40,0.08);
+
+  --heading-font-weight: 700;
+  --body-font-weight: 400;
+}
+
+/* ===================================================================
+   КОНТЕЙНЕР И ГРИД
+   =================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.row { display: flex; flex-wrap: wrap; gap: 1rem; }
+.col { flex: 1 1 0%; }
+
+/* проста 12-колоннаистема (елементарна) */
+.col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+.col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+.col-3 { flex: 0 0 25%; max-width: 25%; }
+.col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+.col-6 { flex: 0 0 50%; max-width: 50%; }
+.col-12 { flex: 0 0 100%; max-width: 100%; }
+
+/* ===================================================================
+   TYPOGRAPHY
+   =================================================================== */
+h1, h2, h3, h4, h5, h6 { color: var(--color-text); font-weight: var(--heading-font-weight); line-height: 1.15; }
+h1 { font-size: clamp(1.6rem, 2.5vw, 2.5rem); }
+h2 { font-size: clamp(1.4rem, 2.1vw, 2rem); }
+
+p { margin-bottom: 1rem; }
+.lead { font-size: 1.125rem; color: var(--color-muted); }
+
+a { color: var(--color-primary); text-decoration: none; }
+a:hover, a:focus { text-decoration: underline; }
+
+/* ===================================================================
+   HEADER / NAV
+   =================================================================== */
+.site-header {
+  background: var(--color-bg);
+  box-shadow: var(--shadow-sm);
+}
+.site-branding { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; }
+.site-logo { height: 48px; width: auto; display: block; }
+.site-title { font-size: 1.125rem; font-weight: 700; }
+
+.main-navigation { display: flex; gap: 1rem; align-items: center; }
+.main-navigation a { padding: 0.5rem 0.75rem; border-radius: 6px; }
+.main-navigation a:hover, .main-navigation a:focus { background: rgba(0,0,0,0.04); }
+
+/* ===================================================================
+   MAIN / SIDEBAR / FOOTER
+   =================================================================== */
+.site-main { padding: 2rem 0; }
+.entry { margin-bottom: 2rem; }
+.entry-title { font-size: 1.5rem; margin-bottom: .5rem; }
+.entry-content { color: var(--color-muted); }
+
+.widget { background: #fff; padding: 1rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); margin-bottom: 1rem; }
+
+.site-footer { padding: 2rem 0; background: #f8fafc; color: var(--color-muted); }
+
+/* ===================================================================
+   BUTTONS
+   =================================================================== */
+.btn { display: inline-block; font-weight: 600; padding: 0.5rem 0.9rem; border-radius: 8px; border: none; cursor: pointer; background: var(--color-primary); color: white; text-align: center; }
+.btn:hover, .btn:focus { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 1px solid rgba(0,0,0,0.08); color: var(--color-text); }
+
+/* ===================================================================
+   FORMS
+   =================================================================== */
+input[type="text"], input[type="email"], input[type="search"], textarea, select {
+  width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid rgba(16,24,40,0.08); background: #fff; font-size: 1rem; }
+
+label { display: block; margin-bottom: 0.35rem; font-weight: 600; }
+
+/* ===================================================================
+   TABLES
+   =================================================================== */
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 0.6rem; border-bottom: 1px solid rgba(16,24,40,0.06); text-align: left; }
+.table thead th { font-weight: 700; }
+
+/* ===================================================================
+   UTILS
+   =================================================================== */
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.gap-2 { gap: 2rem; }
+
+/* ===================================================================
+   ДОСТЪПНОСТ И ФОКУС
+   =================================================================== */
+:focus { outline: none; }
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 0 3px rgba(14,165,164,0.18);
+  outline: none;
+}
+
+/* ===================================================================
+   RESPONSIVE MEDIA QUERY (mobile-first)
+   =================================================================== */
+@media (min-width: 768px) {
+  .site-main { padding: 3rem 0; }
+  .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+}
+
+@media (min-width: 1024px) {
+  .site-header { position: sticky; top: 0; z-index: 40; }
+}
+
+/* ===================================================================
+   ИНТЕГРАЦИЯ С WORDPRESS (editor-styles ако искате)
+   Ако използвате block editor, може да сложите стилове за editor-а в отделен файл
+   =================================================================== */
+
+/* Край на файла */
