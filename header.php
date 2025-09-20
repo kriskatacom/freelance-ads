@@ -7,5 +7,4 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class("bg-gray-100"); ?>>
-<header>
-</header>
+<?php require_once "inc/header.php"; ?>

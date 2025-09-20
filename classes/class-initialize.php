@@ -38,6 +38,8 @@ class Initialize
             filemtime($theme_dir . '/assets/css/tailwind.css')
         );
 
+        if (!is_admin() && current_user_can('administrator')) return;
+
         wp_deregister_script('jquery');
         wp_enqueue_script(
             'jquery',
