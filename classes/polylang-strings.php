@@ -10,6 +10,7 @@ class PolylangStrings
 
     private static $strings = [
         'categories_menu_button' => 'Categories',
+        'show_all_categories' => 'Show All Categories',
         'post_project_button' => 'Post a Project',
         'browse_projects' => 'Browse Projects',
         'about_page' => 'About',

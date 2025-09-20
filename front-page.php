@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+<?php get_header(); 
+
+use Theme\Admin\PolylangStrings;?>
 
 <?php
     $page_id = get_option('page_on_front');
@@ -51,7 +53,7 @@
                 </p>
             </div>
 
-            <ul class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            <ul class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5">
                 <?php foreach ($categories as $category) : ?>
                     <li>
                         <a href="<?php echo esc_url(get_term_link($category)); ?>" 
@@ -64,6 +66,11 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
+            <div class="text-center">
+                <a href="<?= home_url() . "/categories"; ?>" class="inline-block bg-white transition-all text-black md:text-xl font-semibold px-4 md:px-8 py-2 md:py-4 rounded-lg border-2 border-gray-200 active:scale-95 hover:-translate-y-1">
+                    <?php echo esc_html(PolylangStrings::get('show_all_categories')); ?>
+                </a>
+            </div>
         </section>
         <?php endif; ?>
 </main>

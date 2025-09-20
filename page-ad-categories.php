@@ -19,7 +19,7 @@ get_header();
     ?>
 
     <?php if (!empty($categories) && !is_wp_error($categories)) : ?>
-        <ul class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <ul class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5">
             <?php foreach ($categories as $category) : ?>
                 <li>
                     <a href="<?php echo esc_url(get_term_link($category)); ?>" 

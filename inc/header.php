@@ -1,11 +1,22 @@
 <?php
 
+use Theme\Admin\InitializeMenus;
 use Theme\Admin\PolylangStrings;
+
+$current_url = home_url( add_query_arg( [], $wp->request ) );
 
 $categories = get_terms([
     'taxonomy' => 'ad_category',
     'hide_empty' => false,
 ]);
+
+$locations = get_nav_menu_locations();
+$menu_items = [];
+
+if (isset($locations['main_menu'])) {
+    $menu = wp_get_nav_menu_object($locations['main_menu']);
+    $menu_items = wp_get_nav_menu_items($menu->term_id);
+}
 ?>
 
 <nav class="bg-white shadow-md">
@@ -16,14 +27,50 @@ $categories = get_terms([
         <!-- Desktop Menu -->
         <ul class="hidden md:flex space-x-6 items-center">
             <li class="relative group">
-                <button class="text-gray-700 hover:text-blue-600 flex items-center">
-                    <?php echo esc_html(PolylangStrings::get('categories_menu_button')); ?>
+                <button class="hover:text-black flex items-center">
+                    <a href="<?= home_url() . "/categories"; ?>">
+                        <?php echo esc_html(PolylangStrings::get('categories_menu_button')); ?>
+                    </a>
                     <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <ul
                     class="absolute left-0 top-full pt-2 hidden group-hover:block bg-white shadow-md rounded min-w-[250px]">
+                    <?php foreach ($categories as $cat): ?>
+                        <li>
+                            <a href="<?php echo esc_url(get_term_link($cat)); ?>" class="block px-4 py-2 hover:text-white hover:bg-black">
+                                <?php echo esc_html($cat->name); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+            <ul class="flex items-center gap-2">
+                <?php foreach ($menu_items as $item): ?>
+                    <li>
+                        <a href="<?php echo esc_url($item->url); ?>"
+                            class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>"
+                        >
+                            <?php echo esc_html($item->title); ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </ul>
+
+        <!-- Mobile Menu Icon -->
+        <div class="md:hidden flex items-center space-x-5">
+            <div class="relative group">
+                <button class="hover:text-black flex items-center">
+                    <?php echo esc_html(PolylangStrings::get('categories_menu_button')); ?>
+                    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <ul
+                    class="absolute right-0 top-full pt-2 hidden group-hover:block bg-white shadow-md rounded min-w-[250px]">
                     <?php foreach ($categories as $cat): ?>
                         <li>
                             <a href="<?php echo esc_url(get_term_link($cat)); ?>"
@@ -33,18 +80,7 @@ $categories = get_terms([
                         </li>
                     <?php endforeach; ?>
                 </ul>
-            </li>
-            <?php
-            wp_nav_menu([
-                'theme_location' => '',
-                'container' => false,
-                'items_wrap' => '%3$s',
-            ]);
-            ?>
-        </ul>
-
-        <!-- Mobile Menu Icon -->
-        <div class="md:hidden flex items-center">
+            </div>
             <button id="mobile-menu-button" class="text-gray-700 focus:outline-none cursor-pointer">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -54,23 +90,37 @@ $categories = get_terms([
     </div>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-300">
-        <ul class="flex flex-col space-y-4 p-5 bg-white shadow-md">
-            <?php
-            wp_nav_menu([
-                'theme_location' => 'main-menu',
-                'container' => false,
-                'items_wrap' => '%3$s',
-            ]);
-            ?>
-            <?php foreach ($categories as $cat): ?>
-                <li>
-                    <a href="<?php echo esc_url(get_term_link($cat)); ?>" class="text-gray-700 hover:text-blue-600">
-                        <?php echo esc_html($cat->name); ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+    <div id="mobile-menu" class="md:hidden overflow-auto max-h-0 opacity-0 transition-all duration-300">
+        <div class="border-t border-gray-200">
+            <div class="p-5">
+                <ul class="flex flex-col">
+                    <?php foreach ($menu_items as $item): ?>
+                        <li>
+                            <a href="<?php echo esc_url($item->url); ?>"
+                                class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>"
+                            >
+                                <?php echo esc_html($item->title); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <div class="text-xl font-semibold my-5">
+                    <?php echo esc_html(PolylangStrings::get('categories_menu_button')); ?>
+                </div>
+
+                <ul>
+                    <?php foreach ($categories as $cat): ?>
+                        <li>
+                            <a href="<?php echo esc_url(get_term_link($cat)); ?>"
+                                class="py-2 px-4 rounded hover:text-gray-100 hover:bg-black block">
+                                <?php echo esc_html($cat->name); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
     </div>
 </nav>
 
