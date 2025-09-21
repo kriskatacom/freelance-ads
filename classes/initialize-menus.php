@@ -18,8 +18,11 @@ class InitializeMenus
 
     public static function menuLinkClasses($item)
     {
-        $current_id   = get_queried_object_id();
-        $is_active    = intval($item->object_id) === $current_id;
+        $current_path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+        $menu_path = trim(parse_url($item->url, PHP_URL_PATH), '/');
+
+        $is_active = $current_path === $menu_path;
 
         $classes = 'py-2 px-4 rounded block hover:text-gray-100 hover:bg-black';
 
