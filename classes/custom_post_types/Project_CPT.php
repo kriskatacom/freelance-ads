@@ -4,7 +4,7 @@ namespace Classes\Custom_post_types;
 
 use Theme\Admin\Initialize;
 
-class Ads_CPT
+class Project_CPT
 {
     public function __construct()
     {
@@ -21,19 +21,19 @@ class Ads_CPT
     public function register_cpt()
     {
         $labels = [
-            'name'               => 'Ads',
-            'singular_name'      => 'Ad',
-            'menu_name'          => 'Ads',
-            'name_admin_bar'     => 'Ad',
+            'name'               => 'Projects',
+            'singular_name'      => 'Project',
+            'menu_name'          => 'Projects',
+            'name_admin_bar'     => 'Project',
             'add_new'            => 'Add New',
-            'add_new_item'       => 'Add New Ad',
-            'new_item'           => 'New Ad',
-            'edit_item'          => 'Edit Ad',
-            'view_item'          => 'View Ad',
-            'all_items'          => 'All Ads',
-            'search_items'       => 'Search Ads',
-            'not_found'          => 'No ads found',
-            'not_found_in_trash' => 'No ads found in Trash',
+            'add_new_item'       => 'Add New Project',
+            'new_item'           => 'New Project',
+            'edit_item'          => 'Edit Project',
+            'view_item'          => 'View Project',
+            'all_items'          => 'All Projects',
+            'search_items'       => 'Search Projects',
+            'not_found'          => 'No projects found',
+            'not_found_in_trash' => 'No projects found in Trash',
         ];
 
         $args = [
@@ -42,11 +42,11 @@ class Ads_CPT
             'has_archive'        => true,
             'menu_icon'          => 'dashicons-megaphone',
             'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
-            'rewrite'            => ['slug' => 'ads'],
+            'rewrite'            => ['slug' => 'projects'],
             'show_in_rest'       => true,
         ];
 
-        register_post_type('ad', $args);
+        register_post_type('project', $args);
     }
 
     public function register_taxonomy()
@@ -71,16 +71,16 @@ class Ads_CPT
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => ['slug' => 'ad-category'],
+            'rewrite'           => ['slug' => 'project-categories'],
             'show_in_rest'      => true, // Gutenberg + REST API
         ];
 
-        register_taxonomy('ad_category', ['ad'], $args);
+        register_taxonomy('project_category', ['project'], $args);
     }
 
     public function convert_post_slug($data, $postarr)
     {
-        if ($data['post_type'] === 'ad' && !empty($data['post_title'])) {
+        if ($data['post_type'] === 'project' && !empty($data['post_title'])) {
             $data['post_name'] = Initialize::transliterate($data['post_title']);
         }
         return $data;
@@ -88,7 +88,7 @@ class Ads_CPT
 
     public function convert_term_slug($data, $taxonomy)
     {
-        if ($taxonomy === 'ad_category' && !empty($data['name'])) {
+        if ($taxonomy === 'project_category' && !empty($data['name'])) {
             $data['slug'] = Initialize::transliterate($data['name']);
         }
         return $data;
@@ -98,10 +98,10 @@ class Ads_CPT
     public function register_metabox()
     {
         add_meta_box(
-            'ad_details',
-            'Ad Details',
+            'project_details',
+            'Project Details',
             [$this, 'render_metabox'],
-            'ad',
+            'project',
             'normal',
             'high'
         );
@@ -109,13 +109,13 @@ class Ads_CPT
 
     public function render_metabox($post)
     {
-        wp_nonce_field('save_ad_details', 'ad_details_nonce');
+        wp_nonce_field('save_project_details', 'project_details_nonce');
 
-        $price = get_post_meta($post->ID, '_ad_price', true);
-        $location = get_post_meta($post->ID, '_ad_location', true);
-        $contact = get_post_meta($post->ID, '_ad_contact', true);
-        $skills = get_post_meta($post->ID, '_ad_skills', true);
-        $deadline = get_post_meta($post->ID, '_ad_deadline', true);
+        $price = get_post_meta($post->ID, '_project_price', true);
+        $location = get_post_meta($post->ID, '_project_location', true);
+        $contact = get_post_meta($post->ID, '_project_contact', true);
+        $skills = get_post_meta($post->ID, '_project_skills', true);
+        $deadline = get_post_meta($post->ID, '_project_deadline', true);
 
         echo '<style>
             .ad-meta-box { display: grid; grid-template-columns: 250px 1fr; gap: 10px; align-items: center; }
@@ -132,34 +132,34 @@ class Ads_CPT
 
         echo '<div class="ad-meta-box">';
 
-        echo '<label for="ad_price">Price:</label>';
-        echo '<input type="text" id="ad_price" name="ad_price" value="'.esc_attr($price).'" />';
+        echo '<label for="project_price">Price:</label>';
+        echo '<input type="text" id="project_price" name="project_price" value="'.esc_attr($price).'" />';
 
-        echo '<label for="ad_location">Location:</label>';
-        echo '<input type="text" id="ad_location" name="ad_location" value="'.esc_attr($location).'" />';
+        echo '<label for="project_location">Location:</label>';
+        echo '<input type="text" id="project_location" name="project_location" value="'.esc_attr($location).'" />';
 
-        echo '<label for="ad_contact">Contact:</label>';
-        echo '<input type="text" id="ad_contact" name="ad_contact" value="'.esc_attr($contact).'" />';
+        echo '<label for="project_contact">Contact:</label>';
+        echo '<input type="text" id="project_contact" name="project_contact" value="'.esc_attr($contact).'" />';
 
-        echo '<label for="ad_skills">Skills (comma separated):</label>';
-        echo '<input type="text" id="ad_skills" name="ad_skills" value="'.esc_attr($skills).'" />';
+        echo '<label for="project_skills">Skills (comma separated):</label>';
+        echo '<input type="text" id="project_skills" name="project_skills" value="'.esc_attr($skills).'" />';
 
-        echo '<label for="ad_deadline">Deadline:</label>';
-        echo '<input type="text" id="ad_deadline" name="ad_deadline" value="'.esc_attr($deadline).'" />';
+        echo '<label for="project_deadline">Deadline:</label>';
+        echo '<input type="text" id="project_deadline" name="project_deadline" value="'.esc_attr($deadline).'" />';
 
         echo '</div>';
     }
 
     public function save_metabox($post_id)
     {
-        if (!isset($_POST['ad_details_nonce']) || !wp_verify_nonce($_POST['ad_details_nonce'], 'save_ad_details')) return;
+        if (!isset($_POST['project_details_nonce']) || !wp_verify_nonce($_POST['project_details_nonce'], 'save_project_details')) return;
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
         if (!current_user_can('edit_post', $post_id)) return;
 
-        update_post_meta($post_id, '_ad_price', sanitize_text_field($_POST['ad_price'] ?? ''));
-        update_post_meta($post_id, '_ad_location', sanitize_text_field($_POST['ad_location'] ?? ''));
-        update_post_meta($post_id, '_ad_contact', sanitize_text_field($_POST['ad_contact'] ?? ''));
-        update_post_meta($post_id, '_ad_skills', sanitize_text_field($_POST['ad_skills'] ?? ''));
-        update_post_meta($post_id, '_ad_deadline', sanitize_text_field($_POST['ad_deadline'] ?? ''));
+        update_post_meta($post_id, '_project_price', sanitize_text_field($_POST['project_price'] ?? ''));
+        update_post_meta($post_id, '_project_location', sanitize_text_field($_POST['project_location'] ?? ''));
+        update_post_meta($post_id, '_project_contact', sanitize_text_field($_POST['project_contact'] ?? ''));
+        update_post_meta($post_id, '_project_skills', sanitize_text_field($_POST['project_skills'] ?? ''));
+        update_post_meta($post_id, '_project_deadline', sanitize_text_field($_POST['project_deadline'] ?? ''));
     }
 }

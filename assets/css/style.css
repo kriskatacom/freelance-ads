@@ -69,14 +69,18 @@
 /* Списъци */
 .edited-content ul,
 .edited-content ol {
-  margin: 1em 0 1em 2em;
+  margin: 1em 0 1em 3rem;
   padding: 0;
-}
-.edited-content ul {
-  list-style-type: disc;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+.edited-content ul {
+  list-style-type: disc;
+}
+
+.edited-content ol {
+  list-style-type: decimal;
 }
 
 /* Цитати */

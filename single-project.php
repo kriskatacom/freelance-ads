@@ -78,7 +78,7 @@
                     <?php endif; ?>
 
                     <p class="text-gray-600">
-                        <a href="<?php echo get_post_type_archive_link('ad'); ?>" class="hover:underline">
+                        <a href="<?php echo get_post_type_archive_link('project'); ?>" class="hover:underline">
                             <span>Всички проекти</span>
                             <i class="fa-solid fa-left-arrow"></i>
                         </a>

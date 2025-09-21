@@ -5,17 +5,17 @@ use Theme\Admin\PolylangStrings;
 
 $current_url = home_url( add_query_arg( [], $wp->request ) );
 
-$categories = get_terms([
-    'taxonomy' => 'ad_category',
-    'hide_empty' => false,
-]);
-
 $locations = get_nav_menu_locations();
-$menu_items = [];
+$main_menu_items = [];
+$categories_menu_items = [];
 
 if (isset($locations['main_menu'])) {
     $menu = wp_get_nav_menu_object($locations['main_menu']);
-    $menu_items = wp_get_nav_menu_items($menu->term_id);
+    $main_menu_items = wp_get_nav_menu_items($menu->term_id);
+}
+if (isset($locations['categories_menu'])) {
+    $menu = wp_get_nav_menu_object($locations['categories_menu']);
+    $categories_menu_items = wp_get_nav_menu_items($menu->term_id);
 }
 ?>
 
@@ -29,7 +29,7 @@ if (isset($locations['main_menu'])) {
             <li class="relative group">
                 <button class="hover:text-black flex items-center">
                     <a href="<?= home_url() . "/categories"; ?>">
-                        <?php echo esc_html(PolylangStrings::get('categories_menu_button')); ?>
+                        Категории
                     </a>
                     <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M19 9l-7 7-7-7"></path>
@@ -37,17 +37,17 @@ if (isset($locations['main_menu'])) {
                 </button>
                 <ul
                     class="absolute left-0 top-full pt-2 hidden group-hover:block bg-white shadow-md rounded min-w-[250px]">
-                    <?php foreach ($categories as $cat): ?>
+                    <?php foreach ($categories_menu_items as $item): ?>
                         <li>
-                            <a href="<?php echo esc_url(get_term_link($cat)); ?>" class="block px-4 py-2 hover:text-white hover:bg-black">
-                                <?php echo esc_html($cat->name); ?>
+                            <a href="<?php echo esc_url($item->url); ?>" class="block px-4 py-2 hover:text-white hover:bg-black">
+                                <?php echo esc_html($item->title); ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </li>
             <ul class="flex items-center gap-2">
-                <?php foreach ($menu_items as $item): ?>
+                <?php foreach ($main_menu_items as $item): ?>
                     <li>
                         <a href="<?php echo esc_url($item->url); ?>"
                             class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>"
@@ -94,7 +94,7 @@ if (isset($locations['main_menu'])) {
         <div class="border-t border-gray-200">
             <div class="p-5">
                 <ul class="flex flex-col">
-                    <?php foreach ($menu_items as $item): ?>
+                    <?php foreach ($main_menu_items as $item): ?>
                         <li>
                             <a href="<?php echo esc_url($item->url); ?>"
                                 class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>"

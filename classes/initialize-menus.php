@@ -13,6 +13,7 @@ class InitializeMenus
     {
         register_nav_menus([
             'main_menu' => __('Main Menu', 'freelance-ads'),
+            'categories_menu' => __('Categories Menu', 'freelance-ads'),
         ]);
     }
 

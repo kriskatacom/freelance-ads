@@ -13,23 +13,23 @@ require_once get_template_directory() . '/classes/polylang-strings.php';
 
 require_once get_template_directory() . '/classes/pages/HomepageSettings.php';
 
-require_once get_template_directory() . '/classes/custom_post_types/Ads_CPT.php';
+require_once get_template_directory() . '/classes/custom_post_types/Project_CPT.php';
 
 // ==============================
 // Namespaces
 // ==============================
 use Theme\Admin\Initialize;
 use Theme\Admin\InitializeMenus;
-use Theme\Admin\PolylangStrings;
+// use Theme\Admin\PolylangStrings;
 
 use Classes\Pages\HomepageSettings;
 
-use Classes\Custom_post_types\Ads_CPT;
+use Classes\Custom_post_types\Project_CPT;
 
 // ==============================
 // Custom Post Types
 // ==============================
-new Ads_CPT();
+new Project_CPT();
 
 // ==============================
 // Theme Initialization
@@ -45,4 +45,4 @@ new HomepageSettings();
 // ==============================
 // Polylang registrations
 // ==============================
-new PolylangStrings();
+// new PolylangStrings();

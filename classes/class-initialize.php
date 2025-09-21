@@ -69,7 +69,7 @@ class Initialize
 
     public static function forceClassicEditorForPages($use_block_editor, $post_type)
     {
-        if ($post_type === 'page' || $post_type === 'ad' || $post_type === 'post') {
+        if ($post_type === 'page' || $post_type === 'project' || $post_type === 'post') {
             return false;
         }
 

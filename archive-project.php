@@ -15,7 +15,7 @@ get_header();
     <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 max-sm:px-5">
         <?php
         $ads_query = new WP_Query([
-            'post_type' => 'ad',
+            'post_type' => 'project',
             'posts_per_page' => -1,
             'post_status' => 'publish',
         ]);
@@ -23,9 +23,9 @@ get_header();
         if ($ads_query->have_posts()):
             while ($ads_query->have_posts()):
                 $ads_query->the_post();
-                $price = get_post_meta(get_the_ID(), '_ad_price', true);
-                $location = get_post_meta(get_the_ID(), '_ad_location', true);
-                $skills = get_post_meta(get_the_ID(), '_ad_skills', true);
+                $price = get_post_meta(get_the_ID(), '_project_price', true);
+                $location = get_post_meta(get_the_ID(), '_project_location', true);
+                $skills = get_post_meta(get_the_ID(), '_project_skills', true);
                 $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'medium');
                 ?>
                 <a href="<?php the_permalink(); ?>" class="bg-white rounded-lg shadow hover:shadow-lg hover:-translate-y-2 transform transition-all duration-300 overflow-hidden">
@@ -76,7 +76,7 @@ get_header();
             endwhile;
             wp_reset_postdata();
         else:
-            echo '<p class="text-center text-gray-500">No ads found.</p>';
+            echo '<p class="text-center text-gray-500">Няма намерени проекти.</p>';
         endif;
         ?>
     </div>
