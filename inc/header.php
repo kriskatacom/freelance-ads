@@ -3,7 +3,7 @@
 use Theme\Admin\InitializeMenus;
 use Theme\Admin\PolylangStrings;
 
-$current_url = home_url( add_query_arg( [], $wp->request ) );
+$current_url = home_url(add_query_arg([], $wp->request));
 
 $locations = get_nav_menu_locations();
 $main_menu_items = [];
@@ -39,7 +39,8 @@ if (isset($locations['categories_menu'])) {
                     class="absolute left-0 top-full pt-2 hidden group-hover:block bg-white shadow-md rounded min-w-[250px]">
                     <?php foreach ($categories_menu_items as $item): ?>
                         <li>
-                            <a href="<?php echo esc_url($item->url); ?>" class="block px-4 py-2 hover:text-white hover:bg-black">
+                            <a href="<?php echo esc_url($item->url); ?>"
+                                class="block px-4 py-2 hover:text-white hover:bg-black">
                                 <?php echo esc_html($item->title); ?>
                             </a>
                         </li>
@@ -48,13 +49,36 @@ if (isset($locations['categories_menu'])) {
             </li>
             <ul class="flex items-center gap-2">
                 <?php foreach ($main_menu_items as $item): ?>
-                    <li>
-                        <a href="<?php echo esc_url($item->url); ?>"
-                            class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>"
-                        >
-                            <?php echo esc_html($item->title); ?>
-                        </a>
-                    </li>
+                    <?php if (strtolower($item->title) === 'Вход'): ?>
+                        <?php if (is_user_logged_in()): ?>
+                            <li>
+                                <a href="<?php echo esc_url(home_url("/wp-admin/profile.php")); ?>"
+                                    class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>">
+                                    Профил
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>"
+                                    class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>">
+                                    Изход
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <a href="<?php echo esc_url(home_url('/login')); ?>"
+                                    class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>">
+                                    Вход
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <li>
+                            <a href="<?php echo esc_url($item->url); ?>"
+                                class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>">
+                                <?php echo esc_html($item->title); ?>
+                            </a>
+                        </li>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </ul>
         </ul>
@@ -97,8 +121,7 @@ if (isset($locations['categories_menu'])) {
                     <?php foreach ($main_menu_items as $item): ?>
                         <li>
                             <a href="<?php echo esc_url($item->url); ?>"
-                                class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>"
-                            >
+                                class="<?php echo esc_attr(InitializeMenus::menuLinkClasses($item)); ?>">
                                 <?php echo esc_html($item->title); ?>
                             </a>
                         </li>

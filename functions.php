@@ -11,6 +11,8 @@ require_once get_template_directory() . '/classes/class-initialize.php';
 require_once get_template_directory() . '/classes/initialize-menus.php';
 require_once get_template_directory() . '/classes/polylang-strings.php';
 
+require_once get_template_directory() . '/classes/api/Custom_User_Register.php';
+
 require_once get_template_directory() . '/classes/pages/HomepageSettings.php';
 
 require_once get_template_directory() . '/classes/custom_post_types/Project_CPT.php';
