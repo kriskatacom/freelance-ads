@@ -40,11 +40,7 @@ InitializeMenus::init();
 // ==============================
 // Page-specific settings
 // ==============================
-$current_page_id = isset($_GET['post']) ? intval($_GET['post']) : 0;
-
-if (in_array($current_page_id, [14, 33], true)) {
-    new HomepageSettings();
-}
+new HomepageSettings();
 
 // ==============================
 // Polylang registrations

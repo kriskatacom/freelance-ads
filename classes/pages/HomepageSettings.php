@@ -13,11 +13,18 @@ class HomepageSettings
 
     public function register_meta_box()
     {
+        global $post;
+        if (!in_array($post->ID, [14, 33], true)) {
+            return;
+        }
+
+        remove_post_type_support('page', 'editor');
+        
         add_meta_box(
             'homepage_settings',
             'Настройки на първата секция',
             [$this, 'render_meta_box'],
-            'page', // показва се при редакция на страници
+            'page',
             'normal',
             'high'
         );
@@ -51,18 +58,6 @@ class HomepageSettings
 
                 wp_editor($description, $editor_id, $settings);
             ?>
-
-            <!-- Фонова снимка -->
-            <label><strong>Фонова снимка</strong></label><br>
-            <input type="text" id="homepage_background" 
-                   name="homepage_settings[background]" 
-                   value="<?php echo esc_attr($values['background'] ?? ''); ?>" 
-                   class="widefat" style="width:70%; display:inline-block;" />
-            <input type="button" class="button select-background" value="Избери снимка">
-            <?php if (!empty($values['background'])): ?>
-                <div><img src="<?php echo esc_url($values['background']); ?>" 
-                          style="max-width:200px; margin-top:10px;"></div>
-            <?php endif; ?>
 
             <!-- Бутони -->
             <h3 style="margin-top:20px;">Бутони</h3>

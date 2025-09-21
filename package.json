@@ -4,8 +4,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "tailwindcss -c tailwind.config.js -i ./assets/css/style.css -o ./assets/css/tailwind.css --minify",
-    "watch": "tailwindcss -c tailwind.config.js -i ./assets/css/style.css -o ./assets/css/tailwind.css --watch"
+    "build": "tailwindcss -c tailwind.config.js -i ./assets/css/style.css -o ./assets/css/min/tailwind.css --minify",
+    "watch": "tailwindcss -c tailwind.config.js -i ./assets/css/style.css -o ./assets/css/min/tailwind.css --watch"
   },
   "keywords": [],
   "author": "",

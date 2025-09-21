@@ -19,7 +19,7 @@ if (isset($locations['main_menu'])) {
 }
 ?>
 
-<nav class="bg-white shadow-md">
+<nav class="bg-white shadow">
     <div class="container mx-auto px-5 py-4 flex items-center justify-between">
         <!-- Logo -->
         <a href="<?= home_url(); ?>" class="text-2xl font-bold text-gray-800">FreelanceHub</a>

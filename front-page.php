@@ -22,7 +22,7 @@ use Theme\Admin\PolylangStrings;?>
                 <div class="flex max-lg:flex-col items-center gap-5">
                     <?php foreach ($buttons as $btn): ?>
 
-                        <a href="<?php echo esc_url($btn['url']); ?>"
+                        <a href="<?php echo home_url(esc_url($btn['url'])); ?>"
                             class="<?php echo esc_attr($btn['classes'] ?? 'inline-block bg-white transition-all text-black text-xl font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl active:scale-95 hover:-translate-y-1'); ?>"
                             title="<?php echo esc_attr($btn['title'] ?? ''); ?>"
                             rel="<?php echo esc_attr($btn['rel'] ?? ''); ?>"
@@ -56,8 +56,7 @@ use Theme\Admin\PolylangStrings;?>
             <ul class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 px-5">
                 <?php foreach ($categories as $category) : ?>
                     <li>
-                        <a href="<?php echo esc_url(get_term_link($category)); ?>" 
-                        class="bg-white space-y-2 block p-5 text-center rounded shadow-[0_0_4px_rgba(0,0,0,0.25)] hover:shadow-[0_0_20px_rgba(0,0,0,0.35)] hover:-translate-y-2 duration-300">
+                        <a href="<?php echo esc_url(get_term_link($category)); ?>" class="bg-white space-y-2 block p-5 text-center rounded shadow-[0_0_4px_rgba(0,0,0,0.25)] hover:shadow-[0_0_20px_rgba(0,0,0,0.35)] hover:-translate-y-2 duration-300">
                             <h3 class="text-xl font-semibold"><?php echo esc_html($category->name); ?></h3>
                             <?php if (!empty($category->description)) : ?>
                                 <p class="text-lg text-gray-700 line-clamp-2"><?php echo esc_html($category->description); ?></p>

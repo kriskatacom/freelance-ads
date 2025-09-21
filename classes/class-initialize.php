@@ -35,9 +35,16 @@ class Initialize
 
         wp_enqueue_style(
             'freelance_ads_tailwind',
-            $theme_uri . '/assets/css/tailwind.css',
+            $theme_uri . '/assets/css/min/tailwind.css',
             [],
-            filemtime($theme_dir . '/assets/css/tailwind.css')
+            filemtime($theme_dir . '/assets/css/min/tailwind.css')
+        );
+
+        wp_enqueue_style(
+            'font-awesome',
+            $theme_uri . '/assets/fontawesome/css/all.min.css',
+            [],
+            filemtime($theme_dir . '/assets/fontawesome/css/all.min.css')
         );
 
         if (!is_admin() && current_user_can('administrator')) return;
