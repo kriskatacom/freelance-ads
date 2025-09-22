@@ -21,19 +21,19 @@ class Project_CPT
     public function register_cpt()
     {
         $labels = [
-            'name'               => 'Projects',
-            'singular_name'      => 'Project',
-            'menu_name'          => 'Projects',
-            'name_admin_bar'     => 'Project',
-            'add_new'            => 'Add New',
-            'add_new_item'       => 'Add New Project',
-            'new_item'           => 'New Project',
-            'edit_item'          => 'Edit Project',
-            'view_item'          => 'View Project',
-            'all_items'          => 'All Projects',
-            'search_items'       => 'Search Projects',
-            'not_found'          => 'No projects found',
-            'not_found_in_trash' => 'No projects found in Trash',
+            'name'               => 'Проекти',
+            'singular_name'      => 'Проект',
+            'menu_name'          => 'Проекти',
+            'name_admin_bar'     => 'Проект',
+            'add_new'            => 'Добави нов',
+            'add_new_item'       => 'Добавяне на нов проект',
+            'new_item'           => 'Нов проект',
+            'edit_item'          => 'Редактиране на проект',
+            'view_item'          => 'Преглед на проект',
+            'all_items'          => 'Всички проекти',
+            'search_items'       => 'Търсене на проекти',
+            'not_found'          => 'Няма намерени проекти',
+            'not_found_in_trash' => 'Няма намерени проекти в кошчето',
         ];
 
         $args = [
@@ -41,10 +41,36 @@ class Project_CPT
             'public'             => true,
             'has_archive'        => true,
             'menu_icon'          => 'dashicons-megaphone',
-            'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
+            'supports'           => ['title', 'editor', 'thumbnail', 'excerpt', 'author'],
             'rewrite'            => ['slug' => 'projects'],
             'show_in_rest'       => true,
+            'capability_type'    => 'project',
+            'map_meta_cap'    => true,
+            'show_in_menu'    => true,
         ];
+
+        add_action('pre_get_posts', function ($query) {
+            if (
+                is_admin() &&
+                $query->is_main_query() &&
+                $query->get('post_type') === 'project' &&
+                !current_user_can('manage_options')
+            ) {
+                $query->set('author', get_current_user_id());
+            }
+        });
+
+        add_action('init', function () {
+            $role = get_role('subscriber');
+            if ($role) {
+                $role->add_cap('read');
+                $role->add_cap('edit_project');
+                $role->add_cap('edit_projects');
+                $role->add_cap('publish_projects');
+                $role->add_cap('delete_project');
+                $role->add_cap('delete_projects');
+            }
+        });
 
         register_post_type('project', $args);
     }
@@ -52,17 +78,17 @@ class Project_CPT
     public function register_taxonomy()
     {
         $labels = [
-            'name'              => 'Categories',
-            'singular_name'     => 'Category',
-            'search_items'      => 'Search Categories',
-            'all_items'         => 'All Categories',
-            'parent_item'       => 'Parent Category',
-            'parent_item_colon' => 'Parent Category:',
-            'edit_item'         => 'Edit Category',
-            'update_item'       => 'Update Category',
-            'add_new_item'      => 'Add New Category',
-            'new_item_name'     => 'New Category',
-            'menu_name'         => 'Categories',
+            'name'              => 'Категории',
+            'singular_name'     => 'Категория',
+            'search_items'      => 'Търсене в категории',
+            'all_items'         => 'Всички категории',
+            'parent_item'       => 'Родителска категория',
+            'parent_item_colon' => 'Родителска категория:',
+            'edit_item'         => 'Редактиране на категория',
+            'update_item'       => 'Обновяване на категория',
+            'add_new_item'      => 'Добавяне на нова категория',
+            'new_item_name'     => 'Нова категория',
+            'menu_name'         => 'Категории',
         ];
 
         $args = [
@@ -132,19 +158,19 @@ class Project_CPT
 
         echo '<div class="ad-meta-box">';
 
-        echo '<label for="project_price">Price:</label>';
+        echo '<label for="project_price">Сума:</label>';
         echo '<input type="text" id="project_price" name="project_price" value="'.esc_attr($price).'" />';
 
-        echo '<label for="project_location">Location:</label>';
+        echo '<label for="project_location">Локация:</label>';
         echo '<input type="text" id="project_location" name="project_location" value="'.esc_attr($location).'" />';
 
-        echo '<label for="project_contact">Contact:</label>';
+        echo '<label for="project_contact">Контакти:</label>';
         echo '<input type="text" id="project_contact" name="project_contact" value="'.esc_attr($contact).'" />';
 
-        echo '<label for="project_skills">Skills (comma separated):</label>';
+        echo '<label for="project_skills">Умения (разделени със запетая):</label>';
         echo '<input type="text" id="project_skills" name="project_skills" value="'.esc_attr($skills).'" />';
 
-        echo '<label for="project_deadline">Deadline:</label>';
+        echo '<label for="project_deadline">Краен срок:</label>';
         echo '<input type="text" id="project_deadline" name="project_deadline" value="'.esc_attr($deadline).'" />';
 
         echo '</div>';
